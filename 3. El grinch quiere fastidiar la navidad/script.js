@@ -1,33 +1,22 @@
-export default function isValid(letter) {
+function isValid(letter) {
   console.log(letter)
-
+  //Regex to check if word inside ()
+  const grinch = /\(.+\)/
   //Regex will check for []{} inside () signs
   const grinchV2 = /\(.*[\]\[\{\}].*\)/
+  //Regex to check for empty ()
+  const grinchV3 = /\(\s*\)/
 
-  //variables to help understand 
-  let [start,finish,open] = [null,null,false];
-
-//Loop over all the characters looking for () 
- for(let i in letter){
-   if(letter[i]=== '('){
-     start = i;
-     open = true;
-   }
-   if(letter[i]=== ')' && open == true){
-       finish = i;
-       open = false
-       break
-   }
- }
-
-//if there's no '(' or ')' or if they are empty
- if(!start || !finish || start > finish - 2){
-   console.log(false,'empty or missing')
-   return false
- }
 //if regex is true then grinch left {}[] inside
 if(grinchV2.test(letter)){
+  console.log(false,'Has []{}')
   return false
 }
-return true
+//if there's no '(' or ')' or if they are empty
+ if(grinch.test(letter) && !grinchV3.test(letter)){
+   console.log(true,'Valid card')
+   return true
+ }
+
+return false
 }
